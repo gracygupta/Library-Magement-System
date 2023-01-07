@@ -12,7 +12,7 @@
             <a class="navbar-brand" href="/admin">Home</a>
             <% } %>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="responsive">
                 <span class="navbar-toggler-icon"></span>
               </button>
 
@@ -33,14 +33,14 @@
                       <% } %>
 
                         <li class="nav-item dropdown mr-3">
-                          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="anchor">
                             <i class="fa fa-user"></i> Welcome <%=user.username%>
                           </a>
-                          <div class="dropdown-menu">
+                          <div class="dropdown-menu" id="drop">
                             <%if(!currentUser.isAdmin) { %>
-                              <a href="/user/1/profile" class="dropdown-item">
+                              <!-- <a href="/user/1/profile" class="dropdown-item">
                                 <i class="fa fa-user-circle"></i> Profile
-                              </a>
+                              </a> -->
                               <a href="/auth/user-logout" class="dropdown-item">
                                 <i class="fa fa-user-times"></i> Logout
                               </a>
@@ -55,11 +55,11 @@
                           </div>
                         </li>
 
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                           <a href="/user/1/notification" class="nav-link">
                             <i class="fa fa-bell"></i><span class="badge badge-danger badge-pill">2</span>
                           </a>
-                        </li>
+                        </li> -->
                   </ul>
                   <% } else { %>
                     <a href="/signUp" class="btn btn-primary btn-sm ml-auto">Sign up</a>
@@ -178,5 +178,29 @@
           <% } %>
       </div>
     </section>
+    <script>
+      document.querySelectorAll("a#anchor").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          const ele = document.getElementById("drop");
+          if (ele.classList.length == 1) {
+            ele.classList.add("active-on");
+            ele.style.display = "block";
+          } else {
+            ele.classList.remove("active-on");
+            ele.style.display = "none";
+          }
+        });
+      });
+    </script>
+    <script>
+      document.getElementById("responsive").addEventListener("click", () => {
+        const ele = document.getElementById("navbarSupportedContent");
+        if (ele.classList.length == 2) {
+          ele.classList.remove("collapse");
+        } else {
+          ele.classList.add("collapse");
+        }
+      });
+    </script>
 
 <% include ('./partials/footer.html') %>
